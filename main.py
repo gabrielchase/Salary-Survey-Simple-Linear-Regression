@@ -2,6 +2,7 @@ from math import sqrt
 from csv import reader
 
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 
 FILENAME = 'software_salary_data.csv'
 """ 
@@ -78,18 +79,44 @@ def simple_linear_regression(train, test):
     
     return predictions
 
-dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
-results = get_predicted_values_and_rmse(dataset)
+# dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
+# results = get_predicted_values_and_rmse(dataset)
 
-print(results['predicted_values'])
-print(results['rmse'])
 
 dataset = load_csv()
 
-years_of_experience = [float(row[2]) for row in dataset]
-salary = [float(row[3].split('PHP ')[1]) for row in dataset]
+field = []
+years_of_experience = []
+salary = []
+legend_colors = {
+    'Academe': 'blue',
+    'Corporate': 'red',
+    'Consultancy': 'yellow',
+    'Government': 'green',
+    'Startup': 'purple'
+}
 
-plt.plot(years_of_experience, salary, 'ro')
+for row in dataset:
+    field.append(row[1])
+    years_of_experience.append(float(row[2]))
+    salary.append(float(row[3].split('PHP ')[1]))
+
+assert len(dataset) == len(field) == len(years_of_experience) == len(salary) 
+
+# Plot all the points and colr them based on legend_colors
+for idx, val in enumerate(dataset):
+    plt.scatter(years_of_experience[idx] , salary[idx], color = legend_colors.get(field[idx]))
+
+# Legend for colors and their meanings
+legend_academe_blue = mpatches.Patch(color='blue', label='Academe')
+legend_corporate_red = mpatches.Patch(color='red', label='Corporate')
+legend_consultancy_yellow = mpatches.Patch(color='yellow', label='Consultancy')
+legend_government_green = mpatches.Patch(color='green', label='Government')
+legend_startup_purple = mpatches.Patch(color='purple', label='Startup')
+
+plt.legend(handles=[legend_academe_blue, legend_corporate_red, legend_consultancy_yellow, legend_government_green, legend_startup_purple], loc='upper left')
+plt.title('Filipino Salaries in Software Based on Years of Experience')
+plt.ylabel('Salary in PHP')
+plt.xlabel('Years of Experience')
 plt.show()
-
 
