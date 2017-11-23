@@ -29,10 +29,10 @@ Ruby on rails"
 11/16/2017 13:38:44,Corporate,3,PHP 55000,Data analyst,BGC,UPD,BSCS,Yes,Data Science / Data Engineering,R. Python
 11/16/2017 14:21:28,Government,2,PHP 39151,Junior ICT Associate,"Quezon City, Philippines",UP Diliman,BS CS,Yes,"Education, Human Resource, Upper Level Management",Oracle
 11/16/2017 14:54:52,Corporate,9,PHP 125000,Software Engineer,"Office in Manila, Based in San Francisco",UPD,Computer Science,Yes,"Devops, Software Engineering, Web Development","Ruby on Rails, Chef, Elastic Search, Angular, React, MariaDB, Kurento"
-11/16/2017 15:28:40,Startup,1,PHP 35000,,"Quezon City, PH",UP Diliman,BS Computer Science,Yes,Data Science / Data Engineering,Python
+11/16/2017 15:28:40,Startup,0,PHP 35000,,"Quezon City, PH",UP Diliman,BS Computer Science,Yes,Data Science / Data Engineering,Python
 11/16/2017 15:35:26,Corporate,1,PHP 30000,software engg,taguig,upd,cs,Yes,Software Engineering,"PHP, javascript, angular "
 11/16/2017 15:36:14,Consultancy,4,PHP 60000,geoscience data scientist,Quezon City,UP Diliman,BS Geodetic Engineering,Yes,"Data Science / Data Engineering, Enterprise Systems, Machine Learning / AI / Computer Vision, Software Engineering, Web Development","Python, Tensorflow, Django, Postgresql, Google cloud platform"
-11/16/2017 16:13:58,Consultancy,1,PHP 34000,Developer Apprentice,"Taguig, Philippines",Map�_a University,Computer Engineering,Yes,"Mobile Development, Web Development",Ruby on Rails
+11/16/2017 16:13:58,Consultancy,0,PHP 34000,Developer Apprentice,"Taguig, Philippines",Map�_a University,Computer Engineering,Yes,"Mobile Development, Web Development",Ruby on Rails
 11/16/2017 16:55:08,Corporate,2,PHP 120000,secret,Home Based,Secret,SECRET din,Yes,Banking Software,Windows 10
 11/16/2017 17:13:22,Startup,1.5,PHP 32000,,,,,,,
 11/16/2017 17:18:50,Startup,2,PHP 40000,Software Developer,Philippines,UP Diliman,Computer Science,Yes,"Devops, Distributed Systems, Mobile Development, Quality Assurance / Testing, UI / UX, Web Development",
@@ -46,9 +46,9 @@ Ruby on rails"
 11/17/2017 4:52:08,Corporate,2.5,PHP 63000,Software Engineering Lead,"BGC, Philippines",UP Diliman,Computer Science,Yes,"eCommerce, Software Engineering, Web Development","Php, python, ruby, angular 1.5, puppet, terraform, aws, docker"
 11/17/2017 5:57:59,Corporate,2,PHP 41000,Software Engineer,"Taguig, Philippines",University of the Philippines,BS Computer Science,Yes,"Software Engineering, UI / UX, Web Development","Angular 1/2, PHP, Flask (Python), Puppet, Terraform, Jenkins"
 11/17/2017 6:34:08,Startup,11,PHP 80000,Product Engineer,"Taguig, Philippines",Mapua Institute of Technology,BS IT,Yes,"FinTech, Software Engineering, Web Development","Ruby On Rails 4, ReactJS"
-11/17/2017 9:43:33,Corporate,1,PHP 40000,Software Engineer,"Mandaluyong City, Philippines",Unversity of the Philippines Diliman,BS Computer Science,Yes,"Distributed Systems, Enterprise Systems, Software Engineering, Web Development","Oracle Mysql, Go lang, C++ (from scratch using inative libraries lahat except sa oracle.)"
+11/17/2017 9:43:33,Corporate,0,PHP 40000,Software Engineer,"Mandaluyong City, Philippines",Unversity of the Philippines Diliman,BS Computer Science,Yes,"Distributed Systems, Enterprise Systems, Software Engineering, Web Development","Oracle Mysql, Go lang, C++ (from scratch using inative libraries lahat except sa oracle.)"
 11/17/2017 10:19:00,Corporate,1.5,PHP 30000,Programmer,"Mandaluyong, Philippines","University of the Philippines, Diliman",BS Computer Science,Yes,"Banking Software, Web Development",
-11/17/2017 10:24:35,Startup,1,PHP 30000,Jr Software Developer,"Ortigas, Philippines",Ateneo de Manila University,BS Information Technology Entrepreneurship,Yes,"Software Engineering, UI / UX, Web Development","Scala, AWS, Java, React javascript, Circle CI"
+11/17/2017 10:24:35,Startup,0,PHP 30000,Jr Software Developer,"Ortigas, Philippines",Ateneo de Manila University,BS Information Technology Entrepreneurship,Yes,"Software Engineering, UI / UX, Web Development","Scala, AWS, Java, React javascript, Circle CI"
 11/17/2017 12:05:02,Startup,6,PHP 50000,,,Saint Louis University,I.T,Yes,"eCommerce, Mobile Development, Project Management, Quality Assurance / Testing, Software Engineering, Upper Level Management","Java,ObjectiveC,Kotlin,Swift"
 11/17/2017 15:22:44,Corporate,1,PHP 21000,Data Engineer,Pasig City,University of Santo Tomas,BS Computer Science,Yes,Data Management; Data Analytics,"Talend, Oracle, SSIS, SSRS"
 11/17/2017 15:29:24,Startup,6,PHP 150000,Demandware Developer,Pasig City,University of San Agusti ,Information System,Yes,eCommerce,"Demandware, Node, HTML SCSS JS"
@@ -58,14 +58,14 @@ Ruby on rails"
 11/17/2017 16:17:01,Corporate,7,PHP 165000 ,Lead Developer,Quezon City,University of the Philippines Los Banos,BS Computer Science,Yes,eCommerce,
 11/17/2017 16:19:30,Consultancy,10,PHP 70000,IT Consultant,Bulacan,STI College,BS in Comp. Science,Yes,Data Science / Data Engineering,VB.net
 11/17/2017 16:33:22,Corporate,7,PHP 27000,IT admin,"binan, philippines",AMA,Computer Engineering,Yes,"IoT (Internet of Things), Security, Software Engineering, Web Development","php, c++ html"
-11/17/2017 16:52:20,Startup,1,PHP 22000,Software Engineer,"Quezon City, Philippines",University of the Philippines Diliman,BS Computer Science,No,"Mobile Development, Software Engineering, Web Development","Microsoft Azure, Node.js, Vue, Python, Android"
+11/17/2017 16:52:20,Startup,0,PHP 22000,Software Engineer,"Quezon City, Philippines",University of the Philippines Diliman,BS Computer Science,No,"Mobile Development, Software Engineering, Web Development","Microsoft Azure, Node.js, Vue, Python, Android"
 11/17/2017 17:38:44,Consultancy,5,PHP 85000,Sr Front End Developer,Ortigas,Centro Escolar University,BS Computer Engineering,Yes,Web Development,
 11/17/2017 17:45:46,Corporate,16,PHP 120000 ,Manager,Makati,Bicol university,Computer science,Yes,"Banking Software, Data Science / Data Engineering, Devops, Quality Assurance / Testing, Security",Java aws angular robot oracle
 11/17/2017 18:18:27,Corporate,7,PHP 60000,,"Taguig, Philippines",,BS Computer Science and Information System,Yes,"Enterprise Systems, Software Engineering",SAP
 11/17/2017 18:34:34,Corporate,2,PHP 45000,.net dev,"Makati, ph",Dlsu d,Bit,Yes,Web Development,.net mvc azure aws c# sql jquery
 11/17/2017 20:47:18,Startup,4,PHP 29000,Software Engineer,"Mandaluyong, Philippines",Ateneo de Manila University,Management Information Systems,Yes,"FinTech, Software Engineering","AWS, NodeJS, Ruby on Rails, Puppet"
 11/17/2017 21:11:11,Consultancy,9,PHP 100000,Associate Manager,Mandaluyong City,UST,Mechanical Engineering,Yes,"Management, Software Engineering",Oracle
-11/17/2017 22:45:19,Startup,1,PHP 20000,Java Developer / Software Developer,"Ortigas, Pasig",UPLB,BS Computer Science,Yes,"Enterprise Systems, Logistics, Management, Web Development","Spring Data, Java EE, Java Server Faces, ExtJS"
+11/17/2017 22:45:19,Startup,0,PHP 20000,Java Developer / Software Developer,"Ortigas, Pasig",UPLB,BS Computer Science,Yes,"Enterprise Systems, Logistics, Management, Web Development","Spring Data, Java EE, Java Server Faces, ExtJS"
 11/18/2017 8:28:33,Corporate,1,PHP 31000,Software Engineer,"Cubao, Quezon City",De La Salle University - Dasmari�as,BSIT,Yes,Software Engineering,"ASP MVC with C#, MS SQL, Entity Framework"
 11/18/2017 12:25:44,Consultancy,10,PHP 53000,Computer Programmer ,Batangas,Batangas State University,BS Computer Engineering,Yes,Web Development,"PHP, PostGresSQL, Jquery, Bootstrap, Codeigniter "
 11/18/2017 15:50:57,Corporate,4,PHP 56000,QA Automation Developer,Quezon City,Asia Pacific College,BSECE,Yes,"eCommerce, Quality Assurance / Testing","Java, Robot Framework"
