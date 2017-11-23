@@ -118,5 +118,10 @@ plt.legend(handles=[legend_academe_blue, legend_corporate_red, legend_consultanc
 plt.title('Filipino Salaries in Software Based on Years of Experience')
 plt.ylabel('Salary in PHP')
 plt.xlabel('Years of Experience')
+
+axes = plt.gca()
+axes.set_xlim([0, max(years_of_experience)+1])
+axes.set_ylim([0, max(salary)+10000])
+
 plt.show()
 
