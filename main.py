@@ -1,15 +1,19 @@
 from math import sqrt
 from csv import reader
+from operator import itemgetter
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 FILENAME = 'software_salary_data.csv'
-""" 
-[1]: Field
-[2]: Current Years of Experience
-[3]: Salary
-"""
+
+LEGEND_COLORS = {
+    'Academe': 'blue',
+    'Corporate': 'red',
+    'Consultancy': 'yellow',
+    'Government': 'green',
+    'Startup': 'purple'
+}
 
 def load_csv():
     dataset = []
@@ -69,59 +73,60 @@ def get_predicted_values_and_rmse(dataset):
 
     return {'predicted_values': predicted, 'rmse': rmse(actual, predicted)}
 
-def simple_linear_regression(train, test):
+def simple_linear_regression(dataset, test_set):
     predictions = []
-    b, m = coefficients(train)
+    b, m = coefficients(dataset)
     
-    for row in test:
+    for row in test_set:
         yhat = b + (m * row[0])
         predictions.append(yhat)
     
     return predictions
 
-# dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
+# dataset = [[1, 1], [1, 3], [2, 3], [4, 3], [3, 2], [5, 5]]
 # results = get_predicted_values_and_rmse(dataset)
+# print(results)
 
+if __name__ == '__main__':
+    csv_data = load_csv()
+    dataset = []
 
-dataset = load_csv()
+    for row in csv_data:
+        """
+        Corresponding values of index from CSV 
+        [1]: Field
+        [2]: Current Years of Experience
+        [3]: Salary
+        """
+        data = (row[1], float(row[2]), float(row[3].split('PHP ')[1]))
+        dataset.append(data)
 
-field = []
-years_of_experience = []
-salary = []
-legend_colors = {
-    'Academe': 'blue',
-    'Corporate': 'red',
-    'Consultancy': 'yellow',
-    'Government': 'green',
-    'Startup': 'purple'
-}
+    # print(dataset)
 
-for row in dataset:
-    field.append(row[1])
-    years_of_experience.append(float(row[2]))
-    salary.append(float(row[3].split('PHP ')[1]))
+    assert len(csv_data) == len(dataset)
 
-assert len(dataset) == len(field) == len(years_of_experience) == len(salary) 
+    # Plot all the points and colr them based on LEGEND_COLORS
+    for data in dataset:
+        plt.scatter(data[1] , data[2], color = LEGEND_COLORS.get(data[0]))
 
-# Plot all the points and colr them based on legend_colors
-for idx, val in enumerate(dataset):
-    plt.scatter(years_of_experience[idx] , salary[idx], color = legend_colors.get(field[idx]))
+    # Legend for colors and their meanings
+    legend_academe_blue = mpatches.Patch(color='blue', label='Academe')
+    legend_corporate_red = mpatches.Patch(color='red', label='Corporate')
+    legend_consultancy_yellow = mpatches.Patch(color='yellow', label='Consultancy')
+    legend_government_green = mpatches.Patch(color='green', label='Government')
+    legend_startup_purple = mpatches.Patch(color='purple', label='Startup')
 
-# Legend for colors and their meanings
-legend_academe_blue = mpatches.Patch(color='blue', label='Academe')
-legend_corporate_red = mpatches.Patch(color='red', label='Corporate')
-legend_consultancy_yellow = mpatches.Patch(color='yellow', label='Consultancy')
-legend_government_green = mpatches.Patch(color='green', label='Government')
-legend_startup_purple = mpatches.Patch(color='purple', label='Startup')
+    plt.legend(handles=[legend_academe_blue, legend_corporate_red, legend_consultancy_yellow, legend_government_green, legend_startup_purple], loc='lower right')
+    plt.title('Filipino Salaries in Software Based on Years of Experience')
+    plt.ylabel('Salary in PHP')
+    plt.xlabel('Years of Experience')
 
-plt.legend(handles=[legend_academe_blue, legend_corporate_red, legend_consultancy_yellow, legend_government_green, legend_startup_purple], loc='upper left')
-plt.title('Filipino Salaries in Software Based on Years of Experience')
-plt.ylabel('Salary in PHP')
-plt.xlabel('Years of Experience')
+    max_years_of_experience = max(dataset, key=itemgetter(1))[1]
+    max_salary = max(dataset, key=itemgetter(1))[2]
 
-axes = plt.gca()
-axes.set_xlim([0, max(years_of_experience)+1])
-axes.set_ylim([0, max(salary)+10000])
+    axes = plt.gca()
+    axes.set_xlim([0, max_years_of_experience+1])
+    axes.set_ylim([0, max_salary+10000])
 
-plt.show()
+    plt.show()
 
