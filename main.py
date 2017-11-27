@@ -15,6 +15,9 @@ LEGEND_COLORS = {
     'Startup': 'purple'
 }
 
+MAX_YEARS_YEARS_OF_EXPERIENCE = 0
+MAX_SALARY = 0
+
 def load_csv():
     dataset = []
     with open(FILENAME, 'r') as file:
@@ -44,21 +47,32 @@ def covariance(x, mean_x, y, mean_y):
     return covar
 
 def coefficients(dataset):
-    x = [row[0] for row in dataset]
-    y = [row[1] for row in dataset]
+    x = [row[1] for row in dataset]
+    y = [row[2] for row in dataset]
     x_mean, y_mean = mean(x), mean(y)
     m = covariance(x, x_mean, y, y_mean) / variance(x, x_mean)
     b = y_mean - (m * x_mean)
     
-    return [b, m]
+    return (b, m)
 
-def rmse(actual, predicted):
+def rmse(actual_values, predicted_values):
     sum_error = 0.0
+    # print(actual_values)
+    # print('---------------')
+    # print(predicted_values)
     
-    for i in range(len(actual)):
-        sum_error += (predicted[i] - actual[i])**2
+    # for i in range(len(actual_values)):
+    #     print('{}: actual: ({}: {}) | predicted: {}'.format(
+    #         i, actual_values[i][0], , ))
+    #     print()
+        # sum_error += (predicted_values[i]) - actual_values[i][1])**2
+
+    # print(sum_error)
+    # print(len(actual_values))
+    # print(sum_error/len(actual_values))
     
-    return sqrt(sum_error/len(actual))
+    # return sqrt(sum_error/len(actual_values))
+    return 0
 
 def get_predicted_values_and_rmse(dataset):
     test_set = []
@@ -68,20 +82,21 @@ def get_predicted_values_and_rmse(dataset):
         row_copy[-1] = None
         test_set.append(row_copy)
 
-    predicted = simple_linear_regression(dataset, test_set)
-    actual = [row[-1] for row in dataset]
+    predicted_values = simple_linear_regression(dataset, test_set)
+    # Make all years ints to calculate RMSE
+    actual_values = [(int(row[1]), row[2]) for row in dataset]
 
-    return {'predicted_values': predicted, 'rmse': rmse(actual, predicted)}
+    return {'predicted_values': predicted_values, 'rmse': rmse(actual_values, predicted_values)}
 
 def simple_linear_regression(dataset, test_set):
-    predictions = []
+    predicted_values = []
     b, m = coefficients(dataset)
     
-    for row in test_set:
-        yhat = b + (m * row[0])
-        predictions.append(yhat)
+    for year in range(int(MAX_YEARS_YEARS_OF_EXPERIENCE)+1):
+        yhat = (m * year) + b
+        predicted_values.append(yhat)
     
-    return predictions
+    return predicted_values
 
 # dataset = [[1, 1], [1, 3], [2, 3], [4, 3], [3, 2], [5, 5]]
 # results = get_predicted_values_and_rmse(dataset)
@@ -107,7 +122,7 @@ if __name__ == '__main__':
 
     # Plot all the points and colr them based on LEGEND_COLORS
     for data in dataset:
-        plt.scatter(data[1] , data[2], color = LEGEND_COLORS.get(data[0]))
+        plt.scatter(data[1] , data[2], color=LEGEND_COLORS.get(data[0]))
 
     # Legend for colors and their meanings
     legend_academe_blue = mpatches.Patch(color='blue', label='Academe')
@@ -121,12 +136,19 @@ if __name__ == '__main__':
     plt.ylabel('Salary in PHP')
     plt.xlabel('Years of Experience')
 
-    max_years_of_experience = max(dataset, key=itemgetter(1))[1]
-    max_salary = max(dataset, key=itemgetter(1))[2]
+    MAX_YEARS_YEARS_OF_EXPERIENCE = max(dataset, key=itemgetter(1))[1]
+    MAX_SALARY = max(dataset, key=itemgetter(1))[2]
 
     axes = plt.gca()
-    axes.set_xlim([0, max_years_of_experience+1])
-    axes.set_ylim([0, max_salary+10000])
+    axes.set_xlim([0, MAX_YEARS_YEARS_OF_EXPERIENCE+1])
+    axes.set_ylim([0, MAX_SALARY+10000])
+
+    results = get_predicted_values_and_rmse(dataset)
+
+    for year, value in enumerate(results['predicted_values']):
+        plt.scatter(year , value, color='pink')
+
+    print(results)
 
     plt.show()
 
