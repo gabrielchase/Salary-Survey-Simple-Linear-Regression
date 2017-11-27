@@ -57,22 +57,20 @@ def coefficients(dataset):
 
 def rmse(actual_values, predicted_values):
     sum_error = 0.0
-    # print(actual_values)
-    # print('---------------')
-    # print(predicted_values)
     
-    # for i in range(len(actual_values)):
-    #     print('{}: actual: ({}: {}) | predicted: {}'.format(
-    #         i, actual_values[i][0], , ))
-    #     print()
-        # sum_error += (predicted_values[i]) - actual_values[i][1])**2
+    for i in range(len(actual_values)):
+        year = actual_values[i][0]
+        actual_value = actual_values[i][1]
+        predicted_value = predicted_values[year]
 
-    # print(sum_error)
-    # print(len(actual_values))
-    # print(sum_error/len(actual_values))
+        # print('{} | year: {} | actual: {} | predicted: {} | difference: {}'.format(
+        #     i, year, actual_value, predicted_value, predicted_value - actual_value))
+
+        sum_error += (predicted_value - actual_value)**2
+
+    rmse =  sqrt(sum_error/len(actual_values))
     
-    # return sqrt(sum_error/len(actual_values))
-    return 0
+    return rmse
 
 def get_predicted_values_and_rmse(dataset):
     test_set = []
@@ -98,9 +96,6 @@ def simple_linear_regression(dataset, test_set):
     
     return predicted_values
 
-# dataset = [[1, 1], [1, 3], [2, 3], [4, 3], [3, 2], [5, 5]]
-# results = get_predicted_values_and_rmse(dataset)
-# print(results)
 
 if __name__ == '__main__':
     csv_data = load_csv()
@@ -115,8 +110,6 @@ if __name__ == '__main__':
         """
         data = (row[1], float(row[2]), float(row[3].split('PHP ')[1]))
         dataset.append(data)
-
-    # print(dataset)
 
     assert len(csv_data) == len(dataset)
 
@@ -141,14 +134,15 @@ if __name__ == '__main__':
 
     axes = plt.gca()
     axes.set_xlim([0, MAX_YEARS_YEARS_OF_EXPERIENCE+1])
-    axes.set_ylim([0, MAX_SALARY+10000])
+    axes.set_ylim([0, MAX_SALARY+20000])
 
     results = get_predicted_values_and_rmse(dataset)
 
     for year, value in enumerate(results['predicted_values']):
-        plt.scatter(year , value, color='pink')
+        plt.scatter(year , value, color='cyan')
 
-    print(results)
+    years = [i for i in range(int(MAX_YEARS_YEARS_OF_EXPERIENCE)+1)]
+    predicted_values = [value for value in results['predicted_values']]
 
+    plt.plot(years, predicted_values,  color='cyan')
     plt.show()
-
