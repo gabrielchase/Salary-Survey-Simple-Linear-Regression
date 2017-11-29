@@ -99,7 +99,9 @@ def simple_linear_regression(dataset, test_set):
 
 if __name__ == '__main__':
     csv_data = load_csv()
-    dataset = []
+    overall_dataset = []
+    corporate_dataset = []
+    startup_dataset = []
 
     for row in csv_data:
         """
@@ -109,12 +111,17 @@ if __name__ == '__main__':
         [3]: Salary
         """
         data = (row[1], float(row[2]), float(row[3].split('PHP ')[1]))
-        dataset.append(data)
+        overall_dataset.append(data)
 
-    assert len(csv_data) == len(dataset)
+        if row[1] == 'Corporate':
+            corporate_dataset.append(data)
+        elif row[1] == 'Startup':
+            startup_dataset.append(data)
+
+    assert len(csv_data) == len(overall_dataset)
 
     # Plot all the points and colr them based on LEGEND_COLORS
-    for data in dataset:
+    for data in overall_dataset:
         plt.scatter(data[1] , data[2], color=LEGEND_COLORS.get(data[0]))
 
     # Legend for colors and their meanings
@@ -129,20 +136,20 @@ if __name__ == '__main__':
     plt.ylabel('Salary in PHP')
     plt.xlabel('Years of Experience')
 
-    MAX_YEARS_YEARS_OF_EXPERIENCE = max(dataset, key=itemgetter(1))[1]
-    MAX_SALARY = max(dataset, key=itemgetter(1))[2]
+    MAX_YEARS_YEARS_OF_EXPERIENCE = max(overall_dataset, key=itemgetter(1))[1]
+    MAX_SALARY = max(overall_dataset, key=itemgetter(1))[2]
 
     axes = plt.gca()
     axes.set_xlim([0, MAX_YEARS_YEARS_OF_EXPERIENCE+1])
     axes.set_ylim([0, MAX_SALARY+20000])
 
-    results = get_predicted_values_and_rmse(dataset)
+    overall_results = get_predicted_values_and_rmse(overall_dataset)
 
-    for year, value in enumerate(results['predicted_values']):
+    for year, value in enumerate(overall_results['predicted_values']):
         plt.scatter(year , value, color='cyan')
 
     years = [i for i in range(int(MAX_YEARS_YEARS_OF_EXPERIENCE)+1)]
-    predicted_values = [value for value in results['predicted_values']]
+    predicted_values = [value for value in overall_results['predicted_values']]
 
     plt.plot(years, predicted_values,  color='cyan')
     plt.show()
