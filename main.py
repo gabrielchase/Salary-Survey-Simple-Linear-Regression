@@ -130,8 +130,11 @@ if __name__ == '__main__':
     legend_consultancy_yellow = mpatches.Patch(color='yellow', label='Consultancy')
     legend_government_green = mpatches.Patch(color='green', label='Government')
     legend_startup_purple = mpatches.Patch(color='purple', label='Startup')
+    legend_startup_cyan = mpatches.Patch(color='cyan', label='Overall Salary Regression Line')
+    legend_startup_black = mpatches.Patch(color='black', label='Overall Corporate Regression Line')
+    legend_startup_magenta = mpatches.Patch(color='magenta', label='Overall Startup Regression Line')
 
-    plt.legend(handles=[legend_academe_blue, legend_corporate_red, legend_consultancy_yellow, legend_government_green, legend_startup_purple], loc='lower right')
+    plt.legend(handles=[legend_academe_blue, legend_corporate_red, legend_consultancy_yellow, legend_government_green, legend_startup_purple, legend_startup_cyan, legend_startup_black, legend_startup_magenta], loc='lower right')
     plt.title('Filipino Salaries in Software Based on Years of Experience')
     plt.ylabel('Salary in PHP')
     plt.xlabel('Years of Experience')
@@ -144,12 +147,32 @@ if __name__ == '__main__':
     axes.set_ylim([0, MAX_SALARY+20000])
 
     overall_results = get_predicted_values_and_rmse(overall_dataset)
+    print('Overall Results')
+    print(overall_results)
+    
+    corporate_results = get_predicted_values_and_rmse(corporate_dataset)
+    print('Corporate Results')
+    print(corporate_results)
+
+    startup_results = get_predicted_values_and_rmse(startup_dataset)
+    print('Startup Results')
+    print(startup_results)
 
     for year, value in enumerate(overall_results['predicted_values']):
         plt.scatter(year , value, color='cyan')
 
-    years = [i for i in range(int(MAX_YEARS_YEARS_OF_EXPERIENCE)+1)]
-    predicted_values = [value for value in overall_results['predicted_values']]
+    for year, value in enumerate(corporate_results['predicted_values']):
+        plt.scatter(year , value, color='black')
 
-    plt.plot(years, predicted_values,  color='cyan')
+    for year, value in enumerate(startup_results['predicted_values']):
+        plt.scatter(year , value, color='magenta')
+
+    years = [i for i in range(int(MAX_YEARS_YEARS_OF_EXPERIENCE)+1)]
+    overall_predicted_values = [value for value in overall_results['predicted_values']]
+    corporate_predicted_values = [value for value in corporate_results['predicted_values']]
+    startup_predicted_values = [value for value in startup_results['predicted_values']]
+
+    plt.plot(years, overall_predicted_values,  color='cyan')
+    plt.plot(years, corporate_predicted_values,  color='black')
+    plt.plot(years, startup_predicted_values,  color='magenta')
     plt.show()
