@@ -159,9 +159,9 @@ if __name__ == '__main__':
     print('Startup Results')
     print(startup_results)
 
-    legend_startup_cyan = mpatches.Patch(color='cyan', label='Salary Regression Line: {}'.format(overall_results.get('linear_regression_model')))
-    legend_startup_black = mpatches.Patch(color='black', label='Corporate Regression Line: {}'.format(corporate_results.get('linear_regression_model')))
-    legend_startup_magenta = mpatches.Patch(color='magenta', label='Startup Regression Line: {}'.format(startup_results.get('linear_regression_model')))
+    legend_startup_cyan = mpatches.Patch(color='cyan', label='Overall Salary Regression Line \n{}'.format(overall_results.get('linear_regression_model')))
+    legend_startup_black = mpatches.Patch(color='black', label='Corporate Regression Line\n{}'.format(corporate_results.get('linear_regression_model')))
+    legend_startup_magenta = mpatches.Patch(color='magenta', label='Startup Regression Line\n{}'.format(startup_results.get('linear_regression_model')))
 
     plt.legend(
         handles=[legend_academe_blue, legend_corporate_red, legend_consultancy_yellow, legend_government_green, legend_startup_purple, legend_startup_cyan, legend_startup_black, legend_startup_magenta], 
