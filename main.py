@@ -80,11 +80,16 @@ def get_predicted_values_and_rmse(dataset):
         row_copy[-1] = None
         test_set.append(row_copy)
 
-    predicted_values = simple_linear_regression(dataset, test_set)
+    (predicted_values, b, m) = simple_linear_regression(dataset, test_set)
     # Make all years ints to calculate RMSE
     actual_values = [(int(row[1]), row[2]) for row in dataset]
+    linear_regression_model = 'y = {}x + {}'.format(m, b)
 
-    return {'predicted_values': predicted_values, 'rmse': rmse(actual_values, predicted_values)}
+    return {
+        'predicted_values': predicted_values, 
+        'rmse': rmse(actual_values, predicted_values),
+        'linear_regression_model': linear_regression_model
+    }
 
 def simple_linear_regression(dataset, test_set):
     predicted_values = []
@@ -94,7 +99,7 @@ def simple_linear_regression(dataset, test_set):
         yhat = (m * year) + b
         predicted_values.append(yhat)
     
-    return predicted_values
+    return (predicted_values, round(b, 2), round(m, 2))
 
 
 if __name__ == '__main__':
@@ -130,11 +135,7 @@ if __name__ == '__main__':
     legend_consultancy_yellow = mpatches.Patch(color='yellow', label='Consultancy')
     legend_government_green = mpatches.Patch(color='green', label='Government')
     legend_startup_purple = mpatches.Patch(color='purple', label='Startup')
-    legend_startup_cyan = mpatches.Patch(color='cyan', label='Overall Salary Regression Line')
-    legend_startup_black = mpatches.Patch(color='black', label='Overall Corporate Regression Line')
-    legend_startup_magenta = mpatches.Patch(color='magenta', label='Overall Startup Regression Line')
 
-    plt.legend(handles=[legend_academe_blue, legend_corporate_red, legend_consultancy_yellow, legend_government_green, legend_startup_purple, legend_startup_cyan, legend_startup_black, legend_startup_magenta], loc='lower right')
     plt.title('Filipino Salaries in Software Based on Years of Experience')
     plt.ylabel('Salary in PHP')
     plt.xlabel('Years of Experience')
@@ -144,7 +145,7 @@ if __name__ == '__main__':
 
     axes = plt.gca()
     axes.set_xlim([0, MAX_YEARS_YEARS_OF_EXPERIENCE+1])
-    axes.set_ylim([0, MAX_SALARY+20000])
+    axes.set_ylim([0, MAX_SALARY+40000])
 
     overall_results = get_predicted_values_and_rmse(overall_dataset)
     print('Overall Results')
@@ -157,6 +158,16 @@ if __name__ == '__main__':
     startup_results = get_predicted_values_and_rmse(startup_dataset)
     print('Startup Results')
     print(startup_results)
+
+    legend_startup_cyan = mpatches.Patch(color='cyan', label='Salary Regression Line: {}'.format(overall_results.get('linear_regression_model')))
+    legend_startup_black = mpatches.Patch(color='black', label='Corporate Regression Line: {}'.format(corporate_results.get('linear_regression_model')))
+    legend_startup_magenta = mpatches.Patch(color='magenta', label='Startup Regression Line: {}'.format(startup_results.get('linear_regression_model')))
+
+    plt.legend(
+        handles=[legend_academe_blue, legend_corporate_red, legend_consultancy_yellow, legend_government_green, legend_startup_purple, legend_startup_cyan, legend_startup_black, legend_startup_magenta], 
+        bbox_to_anchor=(1.05,1),
+        borderaxespad=0,
+        loc=2)
 
     for year, value in enumerate(overall_results['predicted_values']):
         plt.scatter(year , value, color='cyan')
@@ -175,4 +186,5 @@ if __name__ == '__main__':
     plt.plot(years, overall_predicted_values,  color='cyan')
     plt.plot(years, corporate_predicted_values,  color='black')
     plt.plot(years, startup_predicted_values,  color='magenta')
+
     plt.show()
