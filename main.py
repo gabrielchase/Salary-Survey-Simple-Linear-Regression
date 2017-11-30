@@ -48,7 +48,7 @@ def covariance(x, mean_x, y, mean_y):
 
 def coefficients(dataset):
     """ Compute for the least-squares estimators in the given dataset. Dataset must be a tuple """
-    
+
     x = [row[1] for row in dataset]
     y = [row[2] for row in dataset]
     x_mean, y_mean = mean(x), mean(y)
@@ -105,8 +105,10 @@ def r_squared(actual_values, predicted_values):
     return predicted_sum/actual_sum
 
 def get_results(dataset):
-    """ Get the linear regression model, predicted values per year, 
-        RMSE, and R^2 value  of the given dataset """
+    """ 
+        Get the linear regression model, predicted values per year, 
+        RMSE, and R^2 value  of the given dataset 
+    """
 
     test_set = []
 
@@ -158,21 +160,22 @@ if __name__ == '__main__':
     corporate_dataset = []
     startup_dataset = []
 
-    # ADD ALL VALUES TO `OVERALL_DATASET`  
-    # ADD CORPORATE DATA TO `CORPORATE_DATASET
-    # ADD STARTUP DATA TO `STARTUP_DATASET`
-    for row in csv_data:
-        """
+    """
         Corresponding values of index from CSV 
         [1]: Field
         [2]: Current Years of Experience
         [3]: Salary
-        """
+    """
+    for row in csv_data:
         data = (row[1], float(row[2]), float(row[3].split('PHP ')[1]))
+        
+        # ADD ALL VALUES TO `OVERALL_DATASET`  
         overall_dataset.append(data)
 
+        # ADD CORPORATE DATA TO `CORPORATE_DATASET
         if row[1] == 'Corporate':
             corporate_dataset.append(data)
+        # ADD STARTUP DATA TO `STARTUP_DATASET
         elif row[1] == 'Startup':
             startup_dataset.append(data)
 
