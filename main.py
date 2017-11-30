@@ -98,7 +98,7 @@ def get_results(dataset):
     (predicted_values, b, m) = simple_linear_regression(dataset, test_set)
     # Make all years ints to calculate RMSE
     actual_values = [(int(row[1]), row[2]) for row in dataset]
-    linear_regression_model = 'y = {}x + {}'.format(m, b)
+    linear_regression_model = 'y = {}x + {}'.format(round(m, 2), round(b, 2))
     r2 = r_squared(actual_values, predicted_values)
 
     return {
@@ -116,7 +116,7 @@ def simple_linear_regression(dataset, test_set):
         yhat = (m * year) + b
         predicted_values.append(yhat)
     
-    return (predicted_values, round(b, 2), round(m, 2))
+    return (predicted_values, round(b, 4), round(m, 4))
 
 def print_results(title, results):
     print('\n------------------------\n')
@@ -125,9 +125,9 @@ def print_results(title, results):
     print('Linear Regression Model: {}'.format(results['linear_regression_model']))
     print('Predicted Values\nYear: Predicted Val')
     for idx, val in enumerate(results['predicted_values']):
-        print('{}: {}'.format(idx, val))
-    print('RMSE: {}'.format(results['rmse']))
-    print('R^2: {}'.format(results['R^2']))
+        print('{}: {}'.format(idx, round(val, 2)))
+    print('RMSE: {}'.format(round(results['rmse'], 4)))
+    print('R^2: {}'.format(round(results['R^2'], 4)))
 
 
 if __name__ == '__main__':
