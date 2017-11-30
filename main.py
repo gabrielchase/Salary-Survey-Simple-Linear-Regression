@@ -87,7 +87,7 @@ def r_squared(actual_values, predicted_values):
 
     return predicted_sum/actual_sum
 
-def get_predicted_values_and_rmse(dataset):
+def get_results(dataset):
     test_set = []
 
     for row in dataset:
@@ -164,15 +164,15 @@ if __name__ == '__main__':
     axes.set_xlim([0, MAX_YEARS_YEARS_OF_EXPERIENCE+1])
     axes.set_ylim([0, MAX_SALARY+40000])
 
-    overall_results = get_predicted_values_and_rmse(overall_dataset)
+    overall_results = get_results(overall_dataset)
     print('Overall Results')
     print(overall_results)
     
-    corporate_results = get_predicted_values_and_rmse(corporate_dataset)
+    corporate_results = get_results(corporate_dataset)
     print('Corporate Results')
     print(corporate_results)
 
-    startup_results = get_predicted_values_and_rmse(startup_dataset)
+    startup_results = get_results(startup_dataset)
     print('Startup Results')
     print(startup_results)
 
