@@ -72,6 +72,21 @@ def rmse(actual_values, predicted_values):
     
     return rmse
 
+def r_squared(actual_values, predicted_values):
+    actual_sum = 0
+    predicted_sum = 0
+
+    y_values = [row[1] for row in actual_values]
+    y_mean = mean(y_values)
+
+    for val in actual_values:
+        year = val[0]
+        salary = val[1]
+        predicted_sum += (predicted_values[year] - y_mean)**2
+        actual_sum += (salary - y_mean)**2
+
+    return predicted_sum/actual_sum
+
 def get_predicted_values_and_rmse(dataset):
     test_set = []
 
@@ -84,11 +99,13 @@ def get_predicted_values_and_rmse(dataset):
     # Make all years ints to calculate RMSE
     actual_values = [(int(row[1]), row[2]) for row in dataset]
     linear_regression_model = 'y = {}x + {}'.format(m, b)
+    r2 = r_squared(actual_values, predicted_values)
 
     return {
         'predicted_values': predicted_values, 
+        'linear_regression_model': linear_regression_model,
         'rmse': rmse(actual_values, predicted_values),
-        'linear_regression_model': linear_regression_model
+        'R^2': r2
     }
 
 def simple_linear_regression(dataset, test_set):
