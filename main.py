@@ -47,6 +47,8 @@ def covariance(x, mean_x, y, mean_y):
     return covar
 
 def coefficients(dataset):
+    """ Compute for the least-squares estimators in the given dataset. Dataset must be a tuple """
+    
     x = [row[1] for row in dataset]
     y = [row[2] for row in dataset]
     x_mean, y_mean = mean(x), mean(y)
@@ -56,16 +58,24 @@ def coefficients(dataset):
     return (b, m)
 
 def rmse(actual_values, predicted_values):
+    """ 
+        Computes the RMSE
+        `actual_values` MUST BE A TUPLE containing the year and the actual salary  
+        `predicted_values` must be the corresponding predicted salary per year. 
+            - It's index is its respective year
+    """
+
     sum_error = 0.0
     
+    # Iterate through all values in `actual_values`
     for i in range(len(actual_values)):
+        # Get the year and value of the current index in actual value
         year = actual_values[i][0]
         actual_value = actual_values[i][1]
+        
+        # Get the predicted value corresponding to the current actual value's year
         predicted_value = predicted_values[year]
-
-        # print('{} | year: {} | actual: {} | predicted: {} | difference: {}'.format(
-        #     i, year, actual_value, predicted_value, predicted_value - actual_value))
-
+        
         sum_error += (predicted_value - actual_value)**2
 
     rmse =  sqrt(sum_error/len(actual_values))
@@ -73,6 +83,13 @@ def rmse(actual_values, predicted_values):
     return rmse
 
 def r_squared(actual_values, predicted_values):
+    """ 
+        Computes the R^2 value.
+        `actual_values` MUST BE A TUPLE containing the year and the actual salary  
+        `predicted_values` must be the corresponding predicted salary per year. 
+            - It's index is its respective year
+    """
+    
     actual_sum = 0
     predicted_sum = 0
 
@@ -88,6 +105,9 @@ def r_squared(actual_values, predicted_values):
     return predicted_sum/actual_sum
 
 def get_results(dataset):
+    """ Get the linear regression model, predicted values per year, 
+        RMSE, and R^2 value  of the given dataset """
+
     test_set = []
 
     for row in dataset:
@@ -102,13 +122,15 @@ def get_results(dataset):
     r2 = r_squared(actual_values, predicted_values)
 
     return {
-        'predicted_values': predicted_values, 
         'linear_regression_model': linear_regression_model,
+        'predicted_values': predicted_values, 
         'rmse': rmse(actual_values, predicted_values),
         'R^2': r2
     }
 
 def simple_linear_regression(dataset, test_set):
+    """ Perform simple linear regression """
+    
     predicted_values = []
     b, m = coefficients(dataset)
     
@@ -136,6 +158,9 @@ if __name__ == '__main__':
     corporate_dataset = []
     startup_dataset = []
 
+    # ADD ALL VALUES TO `OVERALL_DATASET`  
+    # ADD CORPORATE DATA TO `CORPORATE_DATASET
+    # ADD STARTUP DATA TO `STARTUP_DATASET`
     for row in csv_data:
         """
         Corresponding values of index from CSV 
@@ -153,17 +178,18 @@ if __name__ == '__main__':
 
     assert len(csv_data) == len(overall_dataset)
 
-    # Plot all the points and colr them based on LEGEND_COLORS
+    # PLOT ALL POINTS OF THE DATASET AND THEIR DESIGNATED COLOR BASED ON FIELD
     for data in overall_dataset:
         plt.scatter(data[1] , data[2], color=LEGEND_COLORS.get(data[0]))
 
-    # Legend for colors and their meanings
+    # LEGEND FOR EACH COLOR AND THEIR RESPECTIVE FIELD
     legend_academe_blue = mpatches.Patch(color='blue', label='Academe')
     legend_corporate_red = mpatches.Patch(color='red', label='Corporate')
     legend_consultancy_yellow = mpatches.Patch(color='yellow', label='Consultancy')
     legend_government_green = mpatches.Patch(color='green', label='Government')
     legend_startup_purple = mpatches.Patch(color='purple', label='Startup')
 
+    # GRAPH STUFF
     plt.title('Filipino Salaries in Software Based on Years of Experience')
     plt.ylabel('Salary in PHP')
     plt.xlabel('Years of Experience')
@@ -175,6 +201,7 @@ if __name__ == '__main__':
     axes.set_xlim([0, MAX_YEARS_YEARS_OF_EXPERIENCE+1])
     axes.set_ylim([0, MAX_SALARY+40000])
 
+    # GET RESULTS OF EACH PLOT
     overall_results = get_results(overall_dataset)
     print_results('overall results', overall_results)
     
@@ -184,6 +211,7 @@ if __name__ == '__main__':
     startup_results = get_results(startup_dataset)
     print_results('startup results', startup_results)
     
+    # LEGEND OF EACH REGRESSION MODEL
     legend_startup_cyan = mpatches.Patch(color='cyan', label='Overall Salary Regression Line \n{}'.format(overall_results.get('linear_regression_model')))
     legend_startup_black = mpatches.Patch(color='black', label='Corporate Regression Line\n{}'.format(corporate_results.get('linear_regression_model')))
     legend_startup_magenta = mpatches.Patch(color='magenta', label='Startup Regression Line\n{}'.format(startup_results.get('linear_regression_model')))
@@ -194,6 +222,7 @@ if __name__ == '__main__':
         borderaxespad=0,
         loc=2)
 
+    # PLOT PREDICTED VALUES AS POINTS OF EACH LINEAR REGRESSION MODEL
     for year, value in enumerate(overall_results['predicted_values']):
         plt.scatter(year , value, color='cyan')
 
@@ -203,11 +232,13 @@ if __name__ == '__main__':
     for year, value in enumerate(startup_results['predicted_values']):
         plt.scatter(year , value, color='magenta')
 
+    # GET PREDICTED VALUES OF  EACH REGRESSION MODEL TO MAKE A LINE
     years = [i for i in range(int(MAX_YEARS_YEARS_OF_EXPERIENCE)+1)]
     overall_predicted_values = [value for value in overall_results['predicted_values']]
     corporate_predicted_values = [value for value in corporate_results['predicted_values']]
     startup_predicted_values = [value for value in startup_results['predicted_values']]
 
+    # DRAW LINE OF EACH REGRESSION MODEL
     plt.plot(years, overall_predicted_values,  color='cyan')
     plt.plot(years, corporate_predicted_values,  color='black')
     plt.plot(years, startup_predicted_values,  color='magenta')
