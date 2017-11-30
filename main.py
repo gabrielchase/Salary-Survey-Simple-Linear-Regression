@@ -118,6 +118,17 @@ def simple_linear_regression(dataset, test_set):
     
     return (predicted_values, round(b, 2), round(m, 2))
 
+def print_results(title, results):
+    print('\n------------------------\n')
+    
+    print(title.upper())
+    print('Linear Regression Model: {}'.format(results['linear_regression_model']))
+    print('Predicted Values\nYear: Predicted Val')
+    for idx, val in enumerate(results['predicted_values']):
+        print('{}: {}'.format(idx, val))
+    print('RMSE: {}'.format(results['rmse']))
+    print('R^2: {}'.format(results['R^2']))
+
 
 if __name__ == '__main__':
     csv_data = load_csv()
@@ -165,17 +176,14 @@ if __name__ == '__main__':
     axes.set_ylim([0, MAX_SALARY+40000])
 
     overall_results = get_results(overall_dataset)
-    print('Overall Results')
-    print(overall_results)
+    print_results('overall results', overall_results)
     
     corporate_results = get_results(corporate_dataset)
-    print('Corporate Results')
-    print(corporate_results)
-
+    print_results('corporate results', corporate_results)
+    
     startup_results = get_results(startup_dataset)
-    print('Startup Results')
-    print(startup_results)
-
+    print_results('startup results', startup_results)
+    
     legend_startup_cyan = mpatches.Patch(color='cyan', label='Overall Salary Regression Line \n{}'.format(overall_results.get('linear_regression_model')))
     legend_startup_black = mpatches.Patch(color='black', label='Corporate Regression Line\n{}'.format(corporate_results.get('linear_regression_model')))
     legend_startup_magenta = mpatches.Patch(color='magenta', label='Startup Regression Line\n{}'.format(startup_results.get('linear_regression_model')))
